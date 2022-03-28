@@ -46,7 +46,7 @@ namespace WinScreenSaverForYouTube
 
             loopTimer = new System.Windows.Forms.Timer();
             loopTimer.Tick += new EventHandler(MyLoopEvent); // TimerEvent
-            loopTimer.Interval = 10000; // 10秒毎に確認
+            loopTimer.Interval = 1000; // 1秒毎に確認
             loopTimer.Start();
         }
 
@@ -55,12 +55,17 @@ namespace WinScreenSaverForYouTube
             if (isCountNumber)
             {
                 sleepCounter++;
-                if (numericUpDown1.Value * 60 - sleepCounter * 6 < 1)
+                if(sleepCounter <= progressBar1.Maximum)
+                {
+                    progressBar1.Value = sleepCounter;
+                }
+                if (numericUpDown1.Value * 60 - sleepCounter < 0)
                 {
                     System.Media.SystemSounds.Asterisk.Play();  // 警告音
                     ViewYouTube(url);
                     isCountNumber = false;
                     sleepCounter = 0;
+                    progressBar1.Value = 0;
                 }
             }
         }
@@ -69,6 +74,9 @@ namespace WinScreenSaverForYouTube
         {
             label2.Text = "タイマーが開始されました。\r\n";
             label2.Text += "設定時間：" + numericUpDown1.Value + "分\r\n";
+
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = (int)numericUpDown1.Value * 60;
 
             isCountNumber = true;
         }
@@ -79,6 +87,7 @@ namespace WinScreenSaverForYouTube
             label2.Text += "タイマーを設定して開始ボタンを押してください。\r\n";
             isCountNumber = false;
             sleepCounter = 0;
+            progressBar1.Value = 0;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -88,7 +97,7 @@ namespace WinScreenSaverForYouTube
             {
                 url = textBox1.Text;
 
-                label3.Text = url + "\r\nを保存しました\r\n";
+                label3.Text = url + "\r\nが再生されます\r\n";
             }
         }
 

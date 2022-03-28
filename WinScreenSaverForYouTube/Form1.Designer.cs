@@ -91,7 +91,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 200);
+            this.label3.Location = new System.Drawing.Point(12, 186);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 15);
             this.label3.TabIndex = 4;
@@ -119,7 +119,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(12, 317);
+            this.linkLabel1.Location = new System.Drawing.Point(533, 200);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(28, 15);
             this.linkLabel1.TabIndex = 7;
@@ -176,7 +176,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 341);
+            this.ClientSize = new System.Drawing.Size(573, 227);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.linkLabel1);
