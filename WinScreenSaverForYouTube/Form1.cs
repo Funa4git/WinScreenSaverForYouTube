@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace WinScreenSaverForYouTube
 {
@@ -11,6 +12,15 @@ namespace WinScreenSaverForYouTube
         string url = "https://www.youtube.com/";
         private System.Windows.Forms.Timer viewTimer;
         private System.Windows.Forms.Timer loopTimer;
+        LASTINPUTINFO lastInputInfo = new LASTINPUTINFO();
+
+        [DllImport("User32.dll")]
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+        internal struct LASTINPUTINFO
+        {
+            public uint cbSize;
+            public uint dwTime;
+        }
 
 
         // YouTubeを開く関数
@@ -30,6 +40,9 @@ namespace WinScreenSaverForYouTube
         {
             SendKeys.Send("F");
             viewTimer.Stop();
+
+            label2.Text = "タイマーは停止中です。\r\n";
+            label2.Text += "タイマーを設定して開始ボタンを押してください。\r\n";
         }
 
 
@@ -48,12 +61,19 @@ namespace WinScreenSaverForYouTube
             loopTimer.Tick += new EventHandler(MyLoopEvent); // TimerEvent
             loopTimer.Interval = 1000; // 1秒毎に確認
             loopTimer.Start();
+
+            lastInputInfo.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInputInfo);
         }
 
         private void MyLoopEvent(object sender, EventArgs e)
         {
             if (isCountNumber)
             {
+                if (GetAfkSecond(lastInputInfo) <= 1)
+                {
+                    sleepCounter = 0;
+                }
+
                 sleepCounter++;
                 if(sleepCounter <= progressBar1.Maximum)
                 {
@@ -68,6 +88,12 @@ namespace WinScreenSaverForYouTube
                     progressBar1.Value = 0;
                 }
             }
+        }
+
+        private static long GetAfkSecond(LASTINPUTINFO lastInputInfo)
+        {
+            GetLastInputInfo(ref lastInputInfo);
+            return (int)((Environment.TickCount - lastInputInfo.dwTime) / 1000);
         }
 
         private void button1_Click(object sender, EventArgs e)
