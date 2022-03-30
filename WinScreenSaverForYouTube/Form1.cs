@@ -96,13 +96,21 @@ namespace WinScreenSaverForYouTube
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label2.Text = "タイマーが開始されました。\r\n";
-            label2.Text += "設定時間：" + numericUpDown1.Value + "分\r\n";
 
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = (int)numericUpDown1.Value * 60;
+            if (url != "https://www.youtube.com/")
+            {
+                label2.Text = "タイマーが開始されました。\r\n";
+                label2.Text += "設定時間：" + numericUpDown1.Value + "分\r\n";
 
-            isCountNumber = true;
+                progressBar1.Minimum = 0;
+                progressBar1.Maximum = (int)numericUpDown1.Value * 60;
+
+                isCountNumber = true;
+            } else
+            {
+                label2.Text = "再生する動画のURLを設定してください。\r\n";
+                label2.Text += "タイマーを設定して開始ボタンを押してください。\r\n";
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
