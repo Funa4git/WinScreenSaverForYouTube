@@ -1,12 +1,10 @@
-using System;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace WinScreenSaverForYouTube
 {
     public partial class Form1 : Form
     {
-        
+
         static int sleepCounter = 0;
         static bool isCountNumber = false;
         string url = "https://www.youtube.com/";
@@ -75,7 +73,7 @@ namespace WinScreenSaverForYouTube
                 }
 
                 sleepCounter++;
-                if(sleepCounter <= progressBar1.Maximum)
+                if (sleepCounter <= progressBar1.Maximum)
                 {
                     progressBar1.Value = sleepCounter;
                 }
